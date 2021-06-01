@@ -1,0 +1,39 @@
+<div id="content" class="content">
+  <div id="container" class="container">
+    <div class="outer r4x3">
+      <div class="inner">
+
+        <div id="divPowered">
+          <span class="spanMsg">Powered by Oiti Technologies</span>
+        </div>
+
+        <div id="overlay" class="overlay">
+        </div>
+
+        <div id="content-video" class="content-video">
+          <video id="player">
+          </video>
+        </div>
+
+        <div id="divLoader" *ngIf="isLoaded">
+          <div class="loader"></div>
+        </div>
+
+        <div id="divMsg">
+          <img id="imgMsg" [src]="msgBase64" />
+          <span id="spanMsg">{{ message }}</span>
+        </div>
+
+        <div id="divSorriso">
+          <img id="imgChallenge" [src]="emojiBase64" />
+        </div>
+
+        <div id="divButton" *ngIf="showIniciar">
+          <button id="btnIniciar" (click)="startCapture()" class="rect green">INICIAR</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<canvas id="fc_canvas" style="display: none"></canvas>

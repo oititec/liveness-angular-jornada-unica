@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+
+* {
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+
+    font-family: "Hammersmith One", sans-serif;
+}
+
+
+body {
+    min-height: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    background-image: url(/assets/img/bg_oiti_matrix.png);
+    overflow: hidden;
+    text-align: center;
+    text-align: -webkit-center;
+    text-align: -moz-center;
+}
+
+/* 592px */
+@media (max-width: 37em) {
+    html,
+	body {
+		padding: 0px;
+		margin: 0px;
+		height: 100%;
+	}
+}
