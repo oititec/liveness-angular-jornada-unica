@@ -1,0 +1,19 @@
+.facetec-logo {
+    max-width: 200px;
+}
+
+.btnBackContainer {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    z-index: 10;
+    text-align: center;
+  }
+
+  .btnBack img {
+    height: 30px;
+  }
+
+  .btnBack {
+    padding: 0;
+  }

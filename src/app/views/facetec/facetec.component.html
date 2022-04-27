@@ -1,0 +1,17 @@
+<div class="wrapping-box-container">
+  <div class="btnBackContainer">
+    <button class="btnImage btnBack" (click)="voltar()">
+      <img id="imgCamera" src="assets/img/document/btnBack.png" />
+    </button>
+  </div>
+    <div id="controls" class="controls">
+        <!-- Button that will begin a Liveness Check -->
+        <button id="liveness-button" disabled (click)="onLivenessCheckPressed()" class="big-button">3D Liveness Check</button>
+        <!-- The status container that will be updated appropriately based on current state of FaceTecSDK -->
+        <p id="status">Initializing...</p>
+    </div>
+    <div id="custom-logo-container">
+      <img class="facetec-logo" src="../assets/img/facetec/facetec_logo.png">
+    </div>
+  </div>
+  

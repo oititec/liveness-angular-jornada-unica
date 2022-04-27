@@ -120,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "liveness-angular"
+    }
+  },
+  "defaultProject": "liveness-angular",
+  "cli": {
+    "analytics": false
+  }
 }

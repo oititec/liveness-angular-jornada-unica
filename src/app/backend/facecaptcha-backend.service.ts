@@ -3,6 +3,7 @@ import { Md5 } from 'ts-md5';
 import { environment } from 'src/environments/environment';
 import { HttpClient, HttpParams, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { switchMap } from 'rxjs/operators';
+//import { Config } from 'src/assets/Config';
 
 @Injectable({
 	providedIn: 'root'
@@ -57,5 +58,14 @@ export class FacecaptchaBackendService {
   // retorna o resultado da appkey
 	gerarAppkey(cliente) {
 		return this.credencial().pipe(switchMap((result) => this.appkey(result.body, cliente)));
+	}
+
+	getProductionKey(appkey: string, modulo: string) {
+		const body = {
+			appkey: appkey,
+			platform: modulo
+		}
+		const url = this.SERVER_API_URL + '/facecaptcha/service/captcha/3d/initialize';
+		return this.http.post(url,body);
 	}
 }
