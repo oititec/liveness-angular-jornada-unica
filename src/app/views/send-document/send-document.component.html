@@ -1,8 +1,12 @@
 <div id="content" class="content">
   <div id="container" class="container">
+    <div class="btnBackContainer">
+      <button class="btnImage btnBack" (click)="voltar()">
+        <img id="imgCamera" src="assets/img/document/btnBack.png" />
+      </button>
+    </div>
     <div class="outer r4x3">
       <div class="inner">
-
         <div *ngIf="!showTypeCapture && !showUpload" class="bgOverlay"></div>
         <div *ngIf="rotateCamera" class="cameraRotate">    
           <div id="divMsg">          
@@ -53,7 +57,7 @@
 
             <div *ngIf="uploadRequest" class="respUpload">
               <img *ngIf="uploadResp" id="imgCamera" src="assets/img/document/btnUploadSuccess.png" />
-              <img *ngIf="!uploadResp" id="imgCamera" src="assets/img/document/btnUploadError.png" />
+              <!-- <img *ngIf="!uploadResp" id="imgCamera" src="assets/img/document/btnUploadError.png" /> -->
               <div id="uploadMsg">
                 <span id="spanMsg">{{ message }}</span>
               </div>
@@ -71,13 +75,14 @@
           <button id="btnIniciar" *ngIf="showIniciar && !btnControllers && !showUpload" (click)="startCapture()" class="btnImage btnCapture fadeIn">
             <img id="imgCamera" src="assets/img/document/btnCapture.png" />
           </button>
-          <button *ngIf="showUpload && !uploadRequest" (click)="uploadPictures()" class="btnImage btnUpload fadeIn">
+          <button *ngIf="showUpload && !uploadRequest" (click)="uploadPictures()" class="btnImage btnUpload fadeIn" [disabled]="isLoaded" [class.disabled]="isLoaded">
             <img id="imgCamera" src="assets/img/document/btnUpload.png" />
           </button>
         </div>   
         </div>      
       </div>
     </div>
+    <notifier-container></notifier-container>  
   </div>
 </div>
 <canvas id="fc_canvas" style="display: none"></canvas>

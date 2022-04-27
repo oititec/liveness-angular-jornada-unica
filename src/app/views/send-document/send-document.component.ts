@@ -6,6 +6,7 @@ import { switchMap, tap } from 'rxjs/operators';
 import { DomSanitizer } from '@angular/platform-browser';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { NotifierService } from 'angular-notifier';
 
 @Component({
   selector: 'app-send-document',
@@ -14,7 +15,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class SendDocumentComponent implements OnInit {
   private streams: any;
-
+  private notifier: NotifierService;
   private appkey = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjZXJ0aWZhY2UiLCJ1c2VyIjoiOUQ0RUM5ODI0RDA1QUMwRjQ1NjM1QTFGMUUxMDdGQ0FBOEN8Y2FybG9zLnRpcnJlbGwiLCJlbXBDb2QiOiIwMDAwMDAwMDAxIiwiZmlsQ29kIjoiMDAwMDAwMjQ5MyIsImNwZiI6IjA3NjM5MDc3NjY0Iiwibm9tZSI6IjU1MzZDNkNGQjU1MjkyMDJFODE1OTNBODQxMDAwODhCMjU4MkM3NjAyOTUwQ0M5NERCNjdCQzlBRjI1OTk1OTlCOEI5NTE0NjlGQjVDOTA5OEY1RDA3MDMwRUI4NjdGMjE4RUEyMjNEQjlCNTVDMzI3MHxDQVJMT1MgQ0VTQVIgR09NRVMgRE9TIFNBTlRPUyBGSUxITyIsIm5hc2NpbWVudG8iOiIxMi8wNC8xOTg4IiwiZWFzeS1pbmRleCI6IkFBQUFFcEQzM2R0WnJ2d3A4eFZVV0FndzZwdVV0WUNVcm0xUVZvLzF3VXZZeEJMaU50eTlDYmVsWHVFanZBPT0iLCJrZXkiOiJRV3hzYjNkaGJtTmxJSEpsY0hWc2MybDJaU0J6WlhnZ2JXRjVJR052Ym5SaGFXND0iLCJleHAiOjE2MTc5NzczOTAsImlhdCI6MTYxNzk3NzA5MH0.M0_irbFYT-l8PkuK8_msCAHl-cHwW7_mWLAWaR_omJU';
   private snapsCaptures: any = [];
   private snapTempDOM: any = '';
@@ -37,8 +38,10 @@ export class SendDocumentComponent implements OnInit {
     private domSanitizer: DomSanitizer,
     private facecaptchaService: FacecaptchaService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    notifier: NotifierService
   ) {
+    this.notifier = notifier;
   }
 
   ngOnInit() {
@@ -152,7 +155,7 @@ export class SendDocumentComponent implements OnInit {
       this.isLoaded = false;
       this.message = '';
       this.processing = false;
-    }, 3000);
+    }, 300);
 
     navigator.getUserMedia =
       (navigator as any).getUserMedia ||
@@ -225,7 +228,7 @@ export class SendDocumentComponent implements OnInit {
       this.btnControllers = true;
       this.isLoaded = false;
       this.processing = false;
-    }, 3000);
+    }, 300);
   }
 
    // Limpa as listar e reinicia a Câmera
@@ -323,25 +326,30 @@ export class SendDocumentComponent implements OnInit {
 
   // Envia as fotos e finaliza o upload de imagens
   uploadPictures() {
+    this.isLoaded = true;
     const snapsSend =  this.snapsCaptures.map(snap => snap.replace('data:image/jpeg;base64,', '')); 
     this.facecaptchaService
       .sendDocument(this.appkey, snapsSend).subscribe(
         (response: any) => {
+          this.isLoaded = false;
           this.uploadRequest = true;
           this.uploadResp = true;
           console.log(response);
           this.message = 'Documento enviado com sucesso';
         },
         (error) => {
-          this.uploadRequest = true;
-          this.uploadResp = false;
+          this.isLoaded = false;
+          this.backSetTypeCapture();
           console.log(error);
-          this.message = 'Documento não enviado, favor entrar em contato com o suporte';
+          this.notifier.notify( 'error', 'Documento não localizado! Por favor reenvie o documento.' );
         }
       );
   }
-
   private isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+  }
+
+  voltar() {
+    this.router.navigateByUrl("").catch();
   }
 }

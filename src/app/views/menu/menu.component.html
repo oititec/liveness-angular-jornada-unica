@@ -1,0 +1,21 @@
+<div id="content" class="content">
+    <div id="container" class="container">
+        <div class="outer r4x3">
+            <div class="inner">
+                <div class="captureTypeBox">
+                    <button class="btnImage fadeIn left pointer" (click)="rotearModulo(0)">
+                        <img id="img-facecaptcha" src="assets/img/menu/btnModuloFaceCaptcha.png" />
+                    </button>
+                    <button class="btnImage fadeIn left pointer" (click)="rotearModulo(1)">
+                        <img id="img-facetec" src="assets/img/menu/btnModuloFacetec.png" />
+                    </button>
+                    <div class="msgStatic">
+                        <span>Escolha o módulo a ser utilizado.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <notifier-container></notifier-container>
+    </div>
+    <canvas id="fc_canvas" style="display: none"></canvas>
+</div>

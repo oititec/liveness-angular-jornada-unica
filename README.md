@@ -28,5 +28,11 @@ npm install
 ng serve
 ```
 
+## Start HTTS
+```
+ng serve --ssl --host 192.168.0.9
+```
+
+
 ## Teste
  http://localhost:4200/ 
